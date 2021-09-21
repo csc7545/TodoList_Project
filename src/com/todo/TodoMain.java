@@ -14,8 +14,10 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
+		TodoUtil.loadList(l, "todolist.txt");
+		Menu.displaymenu();
 		do {
-			Menu.displaymenu();
+			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
@@ -36,20 +38,27 @@ public class TodoMain {
 				TodoUtil.listAll(l);
 				break;
 
-			case "ls_name_asc":
+			case "ls_asc":
 				l.sortByName();
+				System.out.println("제목순 출력 완료");
 				isList = true;
 				break;
 
-			case "ls_name_desc":
+			case "ls_desc":
 				l.sortByName();
 				l.reverseList();
+				System.out.println("제목 역순 출력 완료");
 				isList = true;
 				break;
 				
 			case "ls_date":
 				l.sortByDate();
+				System.out.println("날짜순 출력 완료");
 				isList = true;
+				break;
+				
+			case "help":
+				Menu.displaymenu();
 				break;
 
 			case "exit":
@@ -57,11 +66,12 @@ public class TodoMain {
 				break;
 
 			default:
-				System.out.println("please enter one of the above mentioned command");
+				System.out.println("해당 명령 없음 ( help )");
 				break;
 			}
 			
 			if(isList) l.listAll();
 		} while (!quit);
+		TodoUtil.saveList(l, "todolist.txt");
 	}
 }
