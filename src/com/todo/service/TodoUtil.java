@@ -34,7 +34,7 @@ public class TodoUtil {
 		System.out.print("마감 > ");
 		due_date = sc.nextLine();
 		
-		TodoItem t = new TodoItem(title, desc, category, due_date);
+		TodoItem t = new TodoItem(category, title, desc, due_date);
 		list.addItem(t);
 		System.out.println("추가 완료!");
 	}

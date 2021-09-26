@@ -45,28 +45,21 @@ public class TodoList {
 		}
 	}
 	
-	public void listAll_title(String key) {
+	public void listAll_title_desc(String key) {
 		int count_key = 0;
 		for(TodoItem myitem : list) {
 			if(myitem.getTitle().contains(key)) {
 				System.out.println(list.indexOf(myitem) + 1 + ". " + "[" + myitem.getCategory() + "] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " +myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
 				count_key++;
 			}
-		}
-		System.out.println("총 " + count_key + "개 찾음");
-	}
-	
-	public void listAll_desc(String key) {
-		int count_key = 0;
-		for (TodoItem myitem : list) {
 			if(myitem.getDesc().contains(key)) {
 				System.out.println(list.indexOf(myitem)+1 +  ". " + "[" + myitem.getCategory() + "] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
 				count_key ++;
 			}
 		}
-		
 		System.out.println("총 " + count_key + "개 찾음");
 	}
+	
 	
 	public void listAll_category(String key) {
 		int count_key = 0;

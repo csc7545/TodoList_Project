@@ -64,13 +64,9 @@ public class TodoMain {
 		        isList = true;
 		        break;
 		        
-			case "find_title":
-	        	l.listAll_title(key);
+			case "find":
+	        	l.listAll_title_desc(key);
 	        	break;
-	        	
-	         case "find_desc":
-		        l.listAll_desc(key);
-		        break;
 		        	
 	         case "find_cate":
 		        l.listAll_category(key);
