@@ -3,10 +3,12 @@ package com.todo.dao;
 import java.util.*;
 
 import com.todo.service.TodoSortByDate;
+import com.todo.service.TodoSortByDate_reverse;
 import com.todo.service.TodoSortByName;
 
 public class TodoList {
 	private List<TodoItem> list;
+	private HashSet<String> ls_cate = new HashSet<String>();
 
 	public TodoList() {
 		this.list = new ArrayList<TodoItem>();
@@ -16,8 +18,8 @@ public class TodoList {
 		list.add(t);
 	}
 
-	public void deleteItem(TodoItem t) {
-		list.remove(t);
+	public void deleteItem(int num) {
+		list.remove(list.get(num));
 	}
 
 	void editItem(TodoItem t, TodoItem updated) {
@@ -39,8 +41,42 @@ public class TodoList {
 		System.out.println("\n"
 				+ "정렬됨!");
 		for (TodoItem myitem : list) {
-			System.out.println("[" + myitem.getTitle() + "] " + myitem.getDesc() + " <" + myitem.getCurrent_date() + "> ");
+			System.out.println(list.indexOf(myitem)+1 +  ". " + "[" + myitem.getCategory() + "] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
 		}
+	}
+	
+	public void listAll_title(String key) {
+		int count_key = 0;
+		for(TodoItem myitem : list) {
+			if(myitem.getTitle().contains(key)) {
+				System.out.println(list.indexOf(myitem) + 1 + ". " + "[" + myitem.getCategory() + "] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " +myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
+				count_key++;
+			}
+		}
+		System.out.println("총 " + count_key + "개 찾음");
+	}
+	
+	public void listAll_desc(String key) {
+		int count_key = 0;
+		for (TodoItem myitem : list) {
+			if(myitem.getDesc().contains(key)) {
+				System.out.println(list.indexOf(myitem)+1 +  ". " + "[" + myitem.getCategory() + "] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " + myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
+				count_key ++;
+			}
+		}
+		
+		System.out.println("총 " + count_key + "개 찾음");
+	}
+	
+	public void listAll_category(String key) {
+		int count_key = 0;
+		for (TodoItem myitem : list) {
+			if(myitem.getCategory().contains(key)) {
+				System.out.println(list.indexOf(myitem)+1 +  ". " + "[" + myitem.getCategory() +"] " + myitem.getTitle() +  " - " + myitem.getDesc() + " - " +myitem.getDue_date() + " <" + myitem.getCurrent_date() + "> ");
+				count_key ++;
+			}
+		}
+		System.out.println("총 " + count_key + "개 찾음");
 	}
 	
 	public void reverseList() {
@@ -50,6 +86,11 @@ public class TodoList {
 	public void sortByDate() {
 		Collections.sort(list, new TodoSortByDate());
 	}
+	
+	public void sortByDate_reverse() {
+		Collections.sort(list, new TodoSortByDate_reverse());
+	}
+
 
 	public int indexOf(TodoItem t) {
 		return list.indexOf(t);
@@ -61,4 +102,25 @@ public class TodoList {
 		}
 		return false;
 	}
+
+	public int getSize() {
+		return list.size();
+	}
+	
+	public void search_cate() {
+		for(TodoItem item : list) {
+			ls_cate.add(item.getCategory());
+		}
+	}
+	
+	public void show_ls_cate() {
+		search_cate();
+    	Iterator<String> iterset = ls_cate.iterator();
+    	
+    	while(iterset.hasNext()) {
+    		System.out.print("<" + iterset.next() + "> ");
+    	}
+    	
+    	System.out.println("\n총 " + ls_cate.size()+ "개의 카테고리");
+    }
 }

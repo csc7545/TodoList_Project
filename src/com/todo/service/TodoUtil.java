@@ -15,10 +15,13 @@ public class TodoUtil {
 	
 	public static void createItem(TodoList list) {
 		
-		String title, desc;
+		String title, desc, category, due_date;
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("[추가]\n" + "제목 > ");
+		System.out.println("[추가]");
+		System.out.println("카테고리 > ");
+		category = sc.next();
+		System.out.println("제목 > ");
 		title = sc.next();
 		if (list.isDuplicate(title)) {
 			System.out.printf("제목 중복 불가!");
@@ -28,8 +31,10 @@ public class TodoUtil {
 		sc.nextLine();
 		System.out.println("설명 > ");
 		desc = sc.nextLine().trim();
+		System.out.print("마감 > ");
+		due_date = sc.nextLine();
 		
-		TodoItem t = new TodoItem(title, desc);
+		TodoItem t = new TodoItem(title, desc, category, due_date);
 		list.addItem(t);
 		System.out.println("추가 완료!");
 	}
@@ -38,18 +43,18 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("[삭제]\n"
-				+ "제목 > ");
+		System.out.println("[삭제]");
+		System.out.println("번호 > ");
 		
-		String title = sc.next();
+		int num = sc.nextInt();
 		
-		for (TodoItem item : l.getList()) {
-			if (title.equals(item.getTitle())) {
-				l.deleteItem(item);
-				System.out.println("삭제 완료!");
-				break;
-			}
+		if (num<=0 || num > l.getSize()) {
+			System.out.printf("범위 초과!");
+			return;
 		}
+		
+		l.deleteItem(num-1);
+		System.out.println("삭제 완료!");
 	}
 
 
@@ -57,38 +62,41 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("[변경]\n"
-				+ "기존 제목 > ");
-		String title = sc.next().trim();
-		if (!l.isDuplicate(title)) {
-			System.out.println("일치하는 제목 없음!");
+		System.out.println("[변경]");
+		System.out.println("번호 > ");
+		int num = sc.nextInt();
+		if (num<=0 || num > l.getSize()) {
+			System.out.printf("범위 초과!");
 			return;
 		}
-
+		
+		l.deleteItem(num-1);
+		System.out.print("새 카테고리 > ");
+		String new_category = sc.next().trim();
 		System.out.println("새 제목 > ");
 		String new_title = sc.next().trim();
+		
 		if (l.isDuplicate(new_title)) {
 			System.out.println("제목 중복 불가!");
 			return;
 		}
-		sc.nextLine();
+		
 		System.out.println("새 설명 > ");
+		sc.nextLine();
 		String new_description = sc.nextLine().trim();
-		for (TodoItem item : l.getList()) {
-			if (item.getTitle().equals(title)) {
-				l.deleteItem(item);
-				TodoItem t = new TodoItem(new_title, new_description);
-				l.addItem(t);
-				System.out.println("변경 완료!");
-			}
-		}
+		System.out.print("새 마감일자 > ");
+		String new_duedate = sc.nextLine().trim();
+		
+		TodoItem t = new TodoItem(new_category, new_title, new_description, new_duedate);
+		l.addItem(t);
+		System.out.println("변경 완료!");
 
 	}
 
 	public static void listAll(TodoList l) {
-		System.out.println("[출력]");
+		System.out.println("[전체 출력, 총 " + l.getSize() + "개]");
 		for (TodoItem item : l.getList()) {
-			System.out.println(item.toString());
+			System.out.println(l.indexOf(item) + 1 +  ". " + "[" + item.getCategory() + "] " + item.getTitle() + " : " + item.getDesc() + " - " + item.getDue_date() + " <" + item.getCurrent_date() + "> ");
 		}
 	}
 	
@@ -117,7 +125,7 @@ public class TodoUtil {
 			while((oneline = br.readLine()) != null) {
 				StringTokenizer st = new StringTokenizer (oneline, "##");
 				count++;
-				l.addItem(new TodoItem(st.nextToken(), st.nextToken()));
+				l.addItem(new TodoItem(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken()));
 			}
 			
 			System.out.println(count + "개 로딩 완료!");
