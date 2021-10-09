@@ -1,5 +1,7 @@
 package com.todo;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.todo.dao.TodoList;
@@ -8,13 +10,13 @@ import com.todo.service.TodoUtil;
 
 public class TodoMain {
 	
-	public static void start() {
+	public static void start() throws IOException, SQLException {
 	
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
-		TodoUtil.loadList(l, "todolist.txt");
+		//l.importData("todolist.txt");
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
@@ -38,43 +40,49 @@ public class TodoMain {
 			case "ls":
 				TodoUtil.listAll(l);
 				break;
-
-			case "ls_name_asc":
-				l.sortByName();
-				System.out.println("제목순 출력 완료");
-				isList = true;
-				break;
-
-			case "ls_name_desc":
-				l.sortByName();
-				l.reverseList();
-				System.out.println("제목 역순 출력 완료");
-				isList = true;
-				break;
-				
-			case "ls_date":
-				l.sortByDate();
-				System.out.println("날짜순 출력 완료");
-				isList = true;
-				break;
-				
-			case "ls_date_desc":
-		        l.sortByDate_reverse();
-		        System.out.println("날짜 역순 출력 완료");
-		        isList = true;
-		        break;
 		        
-			case "find":
-	        	l.listAll_title_desc(key);
-	        	break;
-		        	
-	         case "find_cate":
-		        l.listAll_category(key);
-		       	break;
-		       
-	         case "ls_cate":
-			    l.show_ls_cate();
+			case "ls_name":
+		        System.out.println("제목순 출력 완료.");
+		        TodoUtil.listAll(l, "title", 1);
+		        break;
+
+		    case "ls_name_desc":
+		        System.out.println("제목역순 출력 완료.");
+			    TodoUtil.listAll(l, "title", 0);
 			    break;
+		            
+		    case "ls_date":
+		    	System.out.println("날짜순 출력 완료.");
+			    TodoUtil.listAll(l, "due_date", 1);
+			    break;
+		           
+		    case "ls_date_desc":
+		    	System.out.println("날짜역순 출력 완료.");
+			    TodoUtil.listAll(l, "due_date", 0);
+			    break;
+			    
+	        case "find":
+		        String keyword = sc.nextLine().trim();
+		        TodoUtil.findList(l, keyword);
+		        break;
+		        	
+	        case "find_cate":
+		        String cate = sc.nextLine().trim();
+		        TodoUtil.findCateList(l, cate);
+		        break;
+		        	
+		    case "ls_cate":
+				TodoUtil.listCateAll(l);
+				    break;
+				    
+		    case "ls_comp":
+	        	TodoUtil.listAll(l,1);
+	        	break;
+	         
+	        case "comp":
+	        	int number = sc.nextInt();
+	        	TodoUtil.completeItem(l, number);
+	        	break;
 				
 			case "help":
 				Menu.displaymenu();
@@ -89,8 +97,7 @@ public class TodoMain {
 				break;
 			}
 			
-			if(isList) l.listAll();
+			if(isList) TodoUtil.listAll(l);
 		} while (!quit);
-		TodoUtil.saveList(l, "todolist.txt");
 	}
 }
