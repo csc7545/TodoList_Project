@@ -1,9 +1,5 @@
 package com.todo.dao;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +19,7 @@ public class TodoList {
 	}
 
 	public int addItem(TodoItem t) {
-		String sql = "insert into list (title, memo, category, current_date, due_date)" + " values (?,?,?,?,?);";
+		String sql = "insert into list (title, memo, category, current_date, due_date, is_completed)" + " values (?,?,?,?,?,?);";
 		PreparedStatement pstmt;
 		int count = 0;
 		try {
@@ -283,7 +279,7 @@ public class TodoList {
 	}
 
 	public Boolean isDuplicate(String title) {
-		for (TodoItem item : list) {
+		for (TodoItem item : getList()) {
 			if (title.equals(item.getTitle())) return true;
 		}
 		return false;

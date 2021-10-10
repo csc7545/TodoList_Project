@@ -29,7 +29,7 @@ public class TodoUtil {
 		System.out.print("마감 > ");
 		due_date = sc.nextLine();
 		
-		TodoItem t = new TodoItem(category, title, desc, due_date);
+		TodoItem t = new TodoItem(title, desc, category, due_date);
 		if(list.addItem(t)>0)
 			System.out.println("추가 완료!");
 	}
@@ -40,11 +40,11 @@ public class TodoUtil {
 		
 		int num = sc.nextInt();
 		
-		if (num<=0 || num > l.getSize()) {
+		/*if (num<=0 || num > l.getSize()) {
 			System.out.printf("범위 초과!");
 			return;
-		}
-		
+		}*/
+
 		listAll(l);
 		
 		System.out.println("삭제 할까요? (y/n)");
@@ -68,10 +68,10 @@ public class TodoUtil {
 		System.out.print("[변경]\n" + "번호 > ");
 		int num = sc.nextInt();
 		
-		if (num<=0 || num > l.getSize()) {
+		/*if (num<=0 || num > l.getSize()) {
 			System.out.printf("범위 초과!");
 			return;
-		}
+		}*/
 		
 		System.out.print("새 제목 > ");
 		new_title = sc.next().trim();
