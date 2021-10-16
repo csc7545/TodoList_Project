@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 public class TodoItem {
 	private int id;
 	private int is_completed;
+	private int is_important;
     private String title;
     private String desc;
     private String current_date;
@@ -21,6 +22,7 @@ public class TodoItem {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.current_date = f.format(new Date());
         this.is_completed = 0;
+        this.is_important = 0;
     }
     
     public void setId(int id) {
@@ -37,6 +39,14 @@ public class TodoItem {
     
     public int get_is_completed() {
     	return is_completed;
+    }
+    
+    public void set_is_important(int num) {
+    	this.is_important = num;
+    }
+    
+    public int get_is_important() {
+    	return is_important;
     }
     
     public String getTitle() {
@@ -82,10 +92,20 @@ public class TodoItem {
     @Override
     public String toString() {
     	if(this.is_completed == 0) {
-    		return id + " [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		if(this.is_important == 0) {
+    			return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		}
+    		else {
+    			return id + ". [" + category + "] [⭐]" + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		}
     	}
     	else {
-    		return id + " [" + category + "] " + title + " [V] " + " - " + desc + " - " + due_date + " - " + current_date;
+    		if(this.is_important == 0) {
+    			return id + ". [" + category + "] " + "[V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		}
+    		else {
+    			return id + ". [" + category + "] " + "[⭐] [V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		}
     	}
     }
 }

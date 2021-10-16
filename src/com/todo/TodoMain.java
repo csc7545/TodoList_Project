@@ -43,22 +43,22 @@ public class TodoMain {
 		        
 			case "ls_name":
 		        System.out.println("제목순 출력 완료.");
-		        TodoUtil.listAll(l, "title", 1);
+		        TodoUtil.listAllOrdered(l, "title", 1);
 		        break;
 
 		    case "ls_name_desc":
 		        System.out.println("제목역순 출력 완료.");
-			    TodoUtil.listAll(l, "title", 0);
+			    TodoUtil.listAllOrdered(l, "title", 0);
 			    break;
 		            
 		    case "ls_date":
 		    	System.out.println("날짜순 출력 완료.");
-			    TodoUtil.listAll(l, "due_date", 1);
+			    TodoUtil.listAllOrdered(l, "due_date", 1);
 			    break;
 		           
 		    case "ls_date_desc":
 		    	System.out.println("날짜역순 출력 완료.");
-			    TodoUtil.listAll(l, "due_date", 0);
+			    TodoUtil.listAllOrdered(l, "due_date", 0);
 			    break;
 			    
 	        case "find":
@@ -76,12 +76,35 @@ public class TodoMain {
 				    break;
 				    
 		    case "ls_comp":
-	        	TodoUtil.listAll(l,1);
+	        	TodoUtil.listAllCompleted(l,1);
 	        	break;
 	         
-	        case "comp":
-	        	int number = sc.nextInt();
+	        case "complete":
+	        	String multi = sc.nextLine();
+	        	String[] number = multi.split("/");
 	        	TodoUtil.completeItem(l, number);
+	        	break;
+	        	
+	        case "ls_important":
+	        	TodoUtil.listAllImportant(l,1);
+	        	break;
+	        	
+	        case "important":
+	        	multi = sc.nextLine();
+	        	number = multi.split("/");
+	        	TodoUtil.importantItem(l, number);
+	        	break;
+	        	
+	        case "productivity":
+	         	TodoUtil.visualProductivity(l);
+	         	break;
+	         
+	        case "save":
+	        	TodoUtil.saveJson(l);
+	        	break;
+	        	
+	        case "load":
+	        	TodoUtil.loadJson(l);
 	        	break;
 				
 			case "help":
@@ -89,6 +112,7 @@ public class TodoMain {
 				break;
 
 			case "exit":
+	        	System.out.println("종료됨!");
 				quit = true;
 				break;
 
