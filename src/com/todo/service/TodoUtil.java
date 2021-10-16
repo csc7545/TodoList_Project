@@ -16,13 +16,13 @@ public class TodoUtil {
 	// CREATE
 	public static void createItem(TodoList list) {
 		
-		String title, desc, category, due_date;
+		String title, desc, category, due_date, difficulty;
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("[추가]");
-		System.out.println("카테고리 > ");
+		System.out.print("카테고리 > ");
 		category = sc.next();
-		System.out.println("제목 > ");
+		System.out.print("제목 > ");
 		title = sc.next();
 		
 		if (list.isDuplicate(title)) {
@@ -31,19 +31,23 @@ public class TodoUtil {
 		}
 		
 		sc.nextLine();
-		System.out.println("설명 > ");
+		System.out.print("난이도 > ");
+		difficulty = sc.nextLine().trim();
+		
+		System.out.print("설명 > ");
 		desc = sc.nextLine().trim();
+		
 		System.out.print("마감 > ");
 		due_date = sc.nextLine();
 		
-		TodoItem t = new TodoItem(title, desc, category, due_date);
+		TodoItem t = new TodoItem(title, desc, category, due_date, difficulty);
 		if(list.addItem(t)>0)
 			System.out.println("추가 완료!");
 	}
 	// DELETE
 	public static void deleteItem(TodoList l) {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("[삭제]\n" + "번호 > ");
+		System.out.print("[삭제] ['/'로 구분]\n" + "번호 > ");
 		
 		int count = 0;
 		String multiInput = sc.nextLine();
@@ -54,7 +58,7 @@ public class TodoUtil {
 			return;
 		}*/
 		
-		System.out.println("삭제 할까요? (y/n)");
+		System.out.println("삭제 할까요? (Y/N)");
 		String yn = sc.next();
 		
 		if("y".equalsIgnoreCase(yn)) {
@@ -71,7 +75,7 @@ public class TodoUtil {
 	}
 	// UPDATE
 	public static void updateItem(TodoList l) {	
-		String new_title, new_desc, new_category, new_due_date;
+		String new_title, new_desc, new_category, new_due_date, new_difficulty;
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("[변경]\n" + "번호 > ");
@@ -82,6 +86,10 @@ public class TodoUtil {
 			return;
 		}*/
 		
+		System.out.print("새 카테고리 > ");
+		new_category = sc.next();
+		sc.nextLine();
+		
 		System.out.print("새 제목 > ");
 		new_title = sc.next().trim();
 		
@@ -90,9 +98,8 @@ public class TodoUtil {
 			return;
 		}
 		
-		System.out.print("새 카테고리 > ");
-		new_category = sc.next();
-		sc.nextLine();
+		System.out.print("난이도 > ");
+		new_difficulty = sc.nextLine().trim();
 		
 		System.out.print("새 내용 > ");
 		new_desc = sc.nextLine().trim();
@@ -100,7 +107,7 @@ public class TodoUtil {
 		System.out.print("새 마감일자 > ");
 		new_due_date = sc.nextLine().trim();
 		
-		TodoItem t = new TodoItem(new_title, new_desc, new_category, new_due_date);
+		TodoItem t = new TodoItem(new_title, new_desc, new_category, new_due_date, new_difficulty);
 		t.setId(num);
 
 		if(l.updateItem(t)>0) {
@@ -187,14 +194,14 @@ public class TodoUtil {
 	}
 	// Visualize Productivity
 	public static void visualProductivity(TodoList l) {
-		double allNum = l.getList().size();
+		double num = l.getList().size();
 		double count = 0;
 		for(TodoItem item : l.getList()) {
 			if(item.get_is_completed() == 1) {
 				count ++;
 			}
 		}
-		double result = Math.round(count/allNum*100) * 10 / 10.00;
+		double result = Math.round(count/num*100) * 10 / 10.00;
 		int r = (int) result;
 		System.out.println(" 생산성 시각화!");
 		System.out.print("[");
@@ -212,9 +219,15 @@ public class TodoUtil {
 		Gson gson = new Gson();
 		
 		System.out.println("Json 형식으로 저장");
-		System.out.print("파일 이름 입력: ");
-		
-		String filename = s.nextLine();
+    	System.out.print("파일 이름 입력: ");
+    	String filename = s.nextLine();
+    	String txt_filename = filename + ".txt";
+    	
+    	if(txt_filename.equals(filename) == false) {
+    		filename = txt_filename;
+    		System.out.println("\n자동 파일 확장자 변경 (.txt)");
+    	}
+    	
 		String jsonstr = gson.toJson(l.getList());
 		
 		try {

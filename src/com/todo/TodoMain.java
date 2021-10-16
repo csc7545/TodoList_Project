@@ -80,6 +80,7 @@ public class TodoMain {
 	        	break;
 	         
 	        case "complete":
+	        	System.out.print("[완료] ['/'로 구분]\n" + "번호 > ");
 	        	String multi = sc.nextLine();
 	        	String[] number = multi.split("/");
 	        	TodoUtil.completeItem(l, number);
@@ -90,6 +91,7 @@ public class TodoMain {
 	        	break;
 	        	
 	        case "important":
+	        	System.out.print("[중요] ['/'로 구분]\n" + "번호 > ");
 	        	multi = sc.nextLine();
 	        	number = multi.split("/");
 	        	TodoUtil.importantItem(l, number);

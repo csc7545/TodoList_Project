@@ -12,15 +12,17 @@ public class TodoItem {
     private String current_date;
     private String category;
     private String due_date;
+    private String difficulty;
 
 
-    public TodoItem(String title, String desc, String category, String due_date){
+    public TodoItem(String title, String desc, String category, String due_date, String difficulty){
         this.title=title;
         this.desc=desc;
         this.category=category;
         this.due_date=due_date;
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.current_date = f.format(new Date());
+        this.difficulty=difficulty;
         this.is_completed = 0;
         this.is_important = 0;
     }
@@ -47,6 +49,14 @@ public class TodoItem {
     
     public int get_is_important() {
     	return is_important;
+    }
+    
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
     
     public String getTitle() {
@@ -93,18 +103,18 @@ public class TodoItem {
     public String toString() {
     	if(this.is_completed == 0) {
     		if(this.is_important == 0) {
-    			return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    			return id + ". " + "[" + difficulty + "]" + "[" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
     		}
     		else {
-    			return id + ". [" + category + "] [⭐]" + title + " - " + desc + " - " + due_date + " - " + current_date;
+    			return id + ". " + "[" + difficulty + "]" + "[" + category + "] [⭐]" + title + " - " + desc + " - " + due_date + " - " + current_date;
     		}
     	}
     	else {
     		if(this.is_important == 0) {
-    			return id + ". [" + category + "] " + "[V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    			return id + ". " + "[" + difficulty + "]" + "[" + category + "] " + "[V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
     		}
     		else {
-    			return id + ". [" + category + "] " + "[⭐] [V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    			return id + ". " + "[" + difficulty + "]" + "[" + category + "] " + "[⭐] [V] " + title + " - " + desc + " - " + due_date + " - " + current_date;
     		}
     	}
     }

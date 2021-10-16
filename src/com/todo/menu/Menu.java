@@ -3,7 +3,7 @@ public class Menu {
 
     public static void displaymenu()
     {
-        System.out.println();
+        System.out.println("**********TODOLIST 실행**********");
         System.out.println("1. 추가 ( add )");
         System.out.println("2. 삭제 ( del )");
         System.out.println("3. 변경 ( edit )");
@@ -26,6 +26,6 @@ public class Menu {
     }
     
     public static void prompt() {
-    	System.out.println("\nCommand > ");
+    	System.out.print("\nCommand > ");
     }
 }
