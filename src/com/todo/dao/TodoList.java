@@ -231,7 +231,7 @@ public class TodoList {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
-			String sql = "SELECT DISTINCT category FROM list;";
+			String sql = "SELECT DISTINCT category FROM category;";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
@@ -350,6 +350,18 @@ public class TodoList {
 	// Return list size
 	public int getSize() {
 		return list.size();
+	}
+	//Update category table
+	public void updateCategoryTable() {
+		String sql = "INSERT INTO category(id, category) SELECT id, category FROM list WHERE id > 0;";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int result = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*public void importData(String filename) throws IOException, SQLException {

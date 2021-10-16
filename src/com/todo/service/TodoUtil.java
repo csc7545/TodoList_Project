@@ -135,6 +135,7 @@ public class TodoUtil {
 	// List All Categories
 	public static void listCateAll(TodoList l) {
 		int count = 0;
+		l.updateCategoryTable();
 		for(String item : l.getCategories()) {
 			System.out.print(item + " ");
 			count ++;
