@@ -223,10 +223,12 @@ public class TodoUtil {
 		System.out.println("Json 형식으로 저장");
     	System.out.print("파일 이름 입력: ");
     	String filename = s.nextLine();
-    	String txt_filename = filename + ".txt";
     	
-    	if(txt_filename.equals(filename) == false) {
-    		filename = txt_filename;
+    	if(filename.contains(".txt")) {
+    		System.out.println("\ntxt파일 확인 ");
+    	}
+    	else {
+    		filename = filename + ".txt";
     		System.out.println("\n자동 파일 확장자 변경 (.txt)");
     	}
     	
@@ -243,6 +245,7 @@ public class TodoUtil {
 	}
 	// Load Json 
 	public static void loadJson(TodoList l) {
+		l.resetSequence();
 		Scanner s = new Scanner(System.in);
 		Gson gson = new Gson();
 		
@@ -251,6 +254,14 @@ public class TodoUtil {
 		
 		String filename = s.nextLine();
 		String jsonstr=null;
+    	
+    	if(filename.contains(".txt")) {
+    		System.out.println("\ntxt파일 확인 ");
+    	}
+    	else {
+    		filename = filename + ".txt";
+    		System.out.println("\n자동 파일 확장자 변경 (.txt)");
+    	}
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
