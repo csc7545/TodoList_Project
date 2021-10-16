@@ -357,13 +357,24 @@ public class TodoList {
 		PreparedStatement pstmt;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			int result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+	//Reset Sequence
+	public void resetSequence() {
+		String sql = "UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='list';";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	/*public void importData(String filename) throws IOException, SQLException {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));

@@ -15,7 +15,7 @@ import com.todo.dao.TodoList;
 public class TodoUtil {
 	// CREATE
 	public static void createItem(TodoList list) {
-		
+		list.resetSequence();
 		String title, desc, category, due_date, difficulty;
 		Scanner sc = new Scanner(System.in);
 		
@@ -98,6 +98,7 @@ public class TodoUtil {
 			return;
 		}
 		
+		sc.nextLine();
 		System.out.print("난이도 > ");
 		new_difficulty = sc.nextLine().trim();
 		
@@ -191,7 +192,7 @@ public class TodoUtil {
 			if(l.importantItem(Integer.parseInt(index)) > 0)
 				count++;
 		}
-		System.out.println(count + "개 항목이 중 처리됨.\\n");
+		System.out.println(count + "개 항목이 중요 처리됨.");
 	}
 	// Visualize Productivity
 	public static void visualProductivity(TodoList l) {

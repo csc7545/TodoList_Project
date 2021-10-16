@@ -20,8 +20,8 @@ public class Menu {
         System.out.println("14. 중요한 항목 ( important Enter MULTI-숫자 )");
         System.out.println("15. 중요한 항목 출력 ( ls_important )");
         System.out.println("16. 생산성 시각화 ( productivity )");
-        System.out.println("17. Json 저장 ( save )");
-        System.out.println("18. Json 로딩 ( load )");
+        System.out.println("17. Json 저장 ( saveJson )");
+        System.out.println("18. Json 로딩 ( loadJson )");
         System.out.println("19. 종료 ( exit )");
     }
     

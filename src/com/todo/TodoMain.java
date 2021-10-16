@@ -101,11 +101,11 @@ public class TodoMain {
 	         	TodoUtil.visualProductivity(l);
 	         	break;
 	         
-	        case "save":
+	        case "saveJson":
 	        	TodoUtil.saveJson(l);
 	        	break;
 	        	
-	        case "load":
+	        case "loadJson":
 	        	TodoUtil.loadJson(l);
 	        	break;
 				
