@@ -202,7 +202,7 @@ public class TodoUtil {
 				count ++;
 			}
 		}
-		double result = Math.round(count/num*100) * 10 / 10.00;
+		double result = (count/num*100);
 		int r = (int) result;
 		System.out.println(" 생산성 시각화!");
 		System.out.print("[");
@@ -212,7 +212,7 @@ public class TodoUtil {
 		for(int i = 0; i<100-r; i++) {
 			System.out.print("✞");
 		}
-		System.out.print("] " + r +"/100 tasks");
+		System.out.print("] " + r +"/100% tasks\n");
 	}
 	//Save as Json
 	public static void saveJson(TodoList l) {
