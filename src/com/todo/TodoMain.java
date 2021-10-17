@@ -22,7 +22,6 @@ public class TodoMain {
 			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
-			String key = sc.nextLine().trim();
 			switch (choice) {
 
 			case "add":
@@ -80,8 +79,7 @@ public class TodoMain {
 	        	break;
 	         
 	        case "complete":
-	        	System.out.print("[완료] ['/'로 구분]\n" + "번호 > ");
-	        	String multi = sc.nextLine();
+	        	String multi = sc.nextLine().trim();
 	        	String[] number = multi.split("/");
 	        	TodoUtil.completeItem(l, number);
 	        	break;
@@ -91,8 +89,7 @@ public class TodoMain {
 	        	break;
 	        	
 	        case "important":
-	        	System.out.print("[중요] ['/'로 구분]\n" + "번호 > ");
-	        	multi = sc.nextLine();
+	        	multi = sc.nextLine().trim();
 	        	number = multi.split("/");
 	        	TodoUtil.importantItem(l, number);
 	        	break;
